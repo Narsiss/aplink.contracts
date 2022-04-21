@@ -96,7 +96,7 @@ public:
      * @note require contract self auth
      */
     [[eosio::action]]
-    void setadmin(const name& admin);
+    void setadmin(const set<name> &admins);
 
     /**
      * set merchant

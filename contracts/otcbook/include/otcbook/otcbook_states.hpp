@@ -50,7 +50,7 @@ struct [[eosio::table("global"), eosio::contract("otcbook")]] global_t {
     // uint64_t withhold_expire_sec = 600;   // the amount hold will be unfrozen upon expiry
     // name transaction_fee_receiver;  // receiver account to transaction fees
     // uint64_t transaction_fee_ratio = 0; // fee ratio boosted by 10000
-    name admin;             // default is contract self
+    set<name> admin;             // default is contract self
     name conf_contract      = "otcconf"_n;
     bool initialized        = false; 
 
@@ -232,9 +232,9 @@ struct OTCBOOK_TBL order_t {
  */
 typedef eosio::multi_index
 < "buyorders"_n,  order_t,
-    indexed_by<"price"_n, const_mem_fun<order_t, uint64_t, &order_t::by_invprice> >,
+    // indexed_by<"price"_n, const_mem_fun<order_t, uint64_t, &order_t::by_invprice> >,
     indexed_by<"maker"_n, const_mem_fun<order_t, uint128_t, &order_t::by_maker_status> >,
-    indexed_by<"coin"_n, const_mem_fun<order_t, uint128_t, &order_t::by_coin> >,
+    // indexed_by<"coin"_n, const_mem_fun<order_t, uint128_t, &order_t::by_coin> >,
     indexed_by<"updatedat"_n, const_mem_fun<order_t, uint64_t, &order_t::by_update_time> >
 > buy_order_table_t;
 
@@ -245,9 +245,9 @@ typedef eosio::multi_index
  */
 typedef eosio::multi_index
 < "sellorders"_n, order_t,
-    indexed_by<"price"_n, const_mem_fun<order_t, uint64_t, &order_t::by_price> >,
+    // indexed_by<"price"_n, const_mem_fun<order_t, uint64_t, &order_t::by_price> >,
     indexed_by<"maker"_n, const_mem_fun<order_t, uint128_t, &order_t::by_maker_status> >,
-    indexed_by<"coin"_n, const_mem_fun<order_t, uint128_t, &order_t::by_coin> >,
+    // indexed_by<"coin"_n, const_mem_fun<order_t, uint128_t, &order_t::by_coin> >,
     indexed_by<"updatedat"_n, const_mem_fun<order_t, uint64_t, &order_t::by_update_time> >
 > sell_order_table_t;
 
@@ -371,9 +371,9 @@ struct OTCBOOK_TBL deal_t {
         indexed_by<"maker"_n,   const_mem_fun<deal_t, uint128_t, &deal_t::by_maker> >,
         indexed_by<"taker"_n,   const_mem_fun<deal_t, uint128_t, &deal_t::by_taker> >,
         indexed_by<"arbiter"_n, const_mem_fun<deal_t, uint128_t, &deal_t::by_arbiter> >,
-        indexed_by<"ordersn"_n, const_mem_fun<deal_t, uint64_t, &deal_t::by_ordersn> >,
+        // indexed_by<"ordersn"_n, const_mem_fun<deal_t, uint64_t, &deal_t::by_ordersn> >,
         indexed_by<"orderid"_n, const_mem_fun<deal_t, uint128_t, &deal_t::by_order_id> >,
-        indexed_by<"coin"_n,    const_mem_fun<deal_t, uint128_t, &deal_t::by_coin> >,
+        // indexed_by<"coin"_n,    const_mem_fun<deal_t, uint128_t, &deal_t::by_coin> >,
         indexed_by<"updatedat"_n, const_mem_fun<deal_t, uint64_t, &deal_t::by_update_time> >
         // indexed_by<"expiry"_n,  const_mem_fun<deal_t, uint64_t, &deal_t::by_expired_at> >
     > idx_t;

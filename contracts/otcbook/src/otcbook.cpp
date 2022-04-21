@@ -82,8 +82,11 @@ void otcbook::_set_conf(const name &conf_contract) {
     _conf(true);
 }
 
-void otcbook::setadmin(const name& admin) {
+void otcbook::setadmin(const set<name> &admins) {
     require_auth( _self );
+    for (auto& admin : admins) {
+        CHECK( is_account(admin), "Invalid account " );
+    }
     _gstate.admin = admin;
 }
 
