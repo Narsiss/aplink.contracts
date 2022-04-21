@@ -85,7 +85,8 @@ void otcbook::_set_conf(const name &conf_contract) {
 void otcbook::setadmin(const set<name> &admins) {
     require_auth( _self );
     for (auto& admin : admins) {
-        CHECK( is_account(admin), "Invalid account " );
+        CHECK(is_account(admin), "Invalid account " );
+        // CHECK( _gstate.admin.count(admin) != 0, "This account is not administrator")
     }
     _gstate.admin = admin;
 }
@@ -93,7 +94,7 @@ void otcbook::setadmin(const set<name> &admins) {
 void otcbook::setmerchant(const name& owner, const name& merchant, const string &merchant_name, const string &merchant_detail, const string& email, const string& memo) {
 
     require_auth( owner );
-    auto isAdmin = (owner == _gstate.admin);
+    auto isAdmin = ( _gstate.admin.count(owner) == 0);
     if(!isAdmin) {
         check(owner == merchant, "non-admin not allowed to set merchant" );
     }
