@@ -88,7 +88,7 @@ void otcbook::setadmin(const set<name> &admins) {
         CHECK(is_account(admin), "Invalid account " );
         // CHECK( _gstate.admin.count(admin) != 0, "This account is not administrator")
     }
-    _gstate.admin = admin;
+    _gstate.admin = admins;
 }
 
 void otcbook::setmerchant(const name& owner, const name& merchant, const string &merchant_name, const string &merchant_detail, const string& email, const string& memo) {
